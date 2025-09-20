@@ -24,7 +24,6 @@
             --transition: all 0.3s ease;
         }
 
-        /* NEW: Define theme-based colors */
         body.strength-weak {
             --dark-card: #3a1919;
             --dark-bg: #1e0909;
@@ -81,27 +80,27 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                var(--primary) 0%, 
-                transparent 40%);
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(74, 222, 128, 0.05) 0%, 
+                rgba(74, 222, 128, 0.01) 40%, 
+                transparent 70%);
             pointer-events: none;
             z-index: 1;
             transition: background 0.3s ease;
         }
 
-        /* UPDATED: Decreased opacity of the glowing effect */
         body.strength-weak::before {
             background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(248, 113, 113, 0.1) 0%, 
-                rgba(248, 113, 113, 0.02) 40%, 
+                rgba(248, 113, 113, 0.2) 0%, 
+                rgba(248, 113, 113, 0.04) 40%, 
                 transparent 70%);
             animation: pulse-red 2s infinite alternate;
         }
 
         body.strength-medium::before {
             background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(251, 191, 36, 0.1) 0%, 
-                rgba(251, 191, 36, 0.02) 40%, 
+                rgba(251, 191, 36, 0.2) 0%, 
+                rgba(251, 191, 36, 0.04) 40%, 
                 transparent 70%);
             animation: pulse-yellow 2s infinite alternate;
         }
@@ -109,28 +108,27 @@
         body.strength-strong::before,
         body.strength-very-strong::before {
             background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(74, 222, 128, 0.1) 0%, 
-                rgba(74, 222, 128, 0.02) 40%, 
+                rgba(74, 222, 128, 0.25) 0%, 
+                rgba(74, 222, 128, 0.05) 40%, 
                 transparent 70%);
             animation: pulse-green 2s infinite alternate;
         }
 
         @keyframes pulse-red {
-            from { opacity: 0.3; }
-            to { opacity: 0.7; }
+            from { opacity: 0.6; }
+            to { opacity: 1; }
         }
 
         @keyframes pulse-yellow {
-            from { opacity: 0.3; }
-            to { opacity: 0.7; }
+            from { opacity: 0.6; }
+            to { opacity: 1; }
         }
 
         @keyframes pulse-green {
-            from { opacity: 0.3; }
-            to { opacity: 0.8; }
+            from { opacity: 0.6; }
+            to { opacity: 1; }
         }
 
-        /* NEW: Hacking effect animation */
         .background-animation {
             position: fixed;
             top: 0;
@@ -140,27 +138,27 @@
             z-index: 0;
             background-size: 10% 10%;
             background-repeat: repeat;
-            opacity: 0.1;
+            opacity: 0.15;
             transition: all 0.3s ease;
         }
 
         body.strength-weak .background-animation {
-            background-image: linear-gradient(0deg, transparent 95%, rgba(255, 0, 0, 0.1) 95%),
-                              linear-gradient(90deg, transparent 95%, rgba(255, 0, 0, 0.1) 95%);
-            animation: hacking-weak 10s linear infinite;
+            background-image: linear-gradient(0deg, transparent 95%, rgba(255, 0, 0, 0.2) 95%),
+                              linear-gradient(90deg, transparent 95%, rgba(255, 0, 0, 0.2) 95%);
+            animation: hacking-weak 6s linear infinite;
         }
         
         body.strength-medium .background-animation {
-            background-image: linear-gradient(0deg, transparent 95%, rgba(255, 191, 0, 0.1) 95%),
-                              linear-gradient(90deg, transparent 95%, rgba(255, 191, 0, 0.1) 95%);
-            animation: hacking-medium 15s linear infinite;
+            background-image: linear-gradient(0deg, transparent 95%, rgba(255, 191, 0, 0.2) 95%),
+                              linear-gradient(90deg, transparent 95%, rgba(255, 191, 0, 0.2) 95%);
+            animation: hacking-medium 10s linear infinite;
         }
 
         body.strength-strong .background-animation,
         body.strength-very-strong .background-animation {
-            background-image: linear-gradient(0deg, transparent 95%, rgba(0, 255, 0, 0.1) 95%),
-                              linear-gradient(90deg, transparent 95%, rgba(0, 255, 0, 0.1) 95%);
-            animation: hacking-strong 20s linear infinite;
+            background-image: linear-gradient(0deg, transparent 95%, rgba(0, 255, 0, 0.25) 95%),
+                              linear-gradient(90deg, transparent 95%, rgba(0, 255, 0, 0.25) 95%);
+            animation: hacking-strong 15s linear infinite;
         }
 
         @keyframes hacking-weak {
@@ -175,6 +173,81 @@
             from { background-position: 0% 0%; }
             to { background-position: 100% 100%; }
         }
+        
+        /* --- NEW: STYLES FOR ANIMATION ENHANCEMENTS (v4 - FINAL) --- */
+
+        /* 3. Cinematic "Engine Start" Intro */
+        .initial-glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 0% 0%, var(--primary), transparent 40%),
+                radial-gradient(circle at 100% 0%, var(--secondary), transparent 40%),
+                radial-gradient(circle at 0% 100%, var(--secondary), transparent 40%),
+                radial-gradient(circle at 100% 100%, var(--primary), transparent 40%);
+            background-size: 200% 200%;
+            background-position: center center;
+            z-index: 9999;
+            pointer-events: none;
+            animation: engine-start-intro 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes engine-start-intro {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+                filter: blur(40px);
+            }
+            20% {
+                opacity: 0.5;
+                transform: scale(0.4);
+            }
+            30% {
+                opacity: 0.3;
+                transform: scale(0.38);
+            }
+            50% {
+                opacity: 0.8; /* Peak opacity reduced by 20% */
+                transform: scale(0.8);
+                filter: blur(25px);
+            }
+            80% {
+                opacity: 0.7;
+                transform: scale(1.3);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2.5);
+                filter: blur(40px);
+            }
+        }
+
+        /* 2. Whisper-Quiet Box Glow */
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        @keyframes rotate-glow {
+            from { --angle: 0deg; }
+            to { --angle: 360deg; }
+        }
+        
+        /* 1. Silky-Smooth Logo Animation */
+        @keyframes subtle-glow {
+            0%, 100% { text-shadow: 0 0 4px var(--primary); }
+            50% { text-shadow: 0 0 8px var(--primary), 0 0 10px var(--primary); }
+        }
+
+        @keyframes gradient-scan {
+            0%, 100% { background-position: 100% 50%; }
+            50% { background-position: 0% 50%; }
+        }
+        /* --- END OF NEW STYLES --- */
 
         .main-bg {
             background: transparent;
@@ -196,14 +269,31 @@
             justify-content: center;
             font-size: 2.2em;
             font-weight: 700;
-            /* Logo color is fixed, as requested */
             color: var(--primary);
             gap: 0.4em;
         }
         
-        /* SECURE PASS icon color is fixed, as requested */
         .logo-icon {
             font-size: 1.5em;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            /* MODIFIED: New animation technique for a smooth shimmer effect */
+            background: linear-gradient(90deg, var(--primary) 10%, #fff 50%, var(--primary) 90%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation:
+                subtle-glow 4s ease-in-out infinite,
+                gradient-scan 4s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+        
+        /* MODIFIED: Removed the ::after rule which caused the clipping issue */
+        .logo-icon::after {
+            content: none;
         }
 
         .logo-text {
@@ -314,21 +404,68 @@
             color: var(--light-text);
         }
 
+        .docs-promo {
+            max-width: 700px;
+            margin: 0 auto 2em auto;
+            text-align: center;
+            padding: 1.5em;
+            border-radius: 12px;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        body.light-mode .docs-promo {
+            background: #f8fafc;
+            border: 1px solid var(--light-border);
+        }
+        .docs-promo p {
+            margin-bottom: 1em;
+            line-height: 1.6;
+        }
+        .docs-promo #learn-more-btn {
+            font-size: 0.9em;
+            padding: 0.6em 1.2em;
+            margin-bottom: 0;
+        }
+
         .tool-section {
             max-width: 700px;
             margin: 2em auto 0 auto;
             background: var(--dark-card);
             border-radius: 16px;
-            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.2);
+            /* MODIFIED: Reduced background glow intensity by ~20% */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 20px var(--primary);
             padding: 2em;
             text-align: center;
             transition: var(--transition);
             backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
         }
+
+        /* MODIFIED: Reduced moving glow opacity by another 50% */
+        .tool-section::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 18px;
+            background: conic-gradient(
+                from var(--angle),
+                transparent 50%,
+                var(--primary),
+                transparent 90%
+            );
+            filter: blur(30px);
+            z-index: -1;
+            animation: rotate-glow 8s linear infinite;
+            animation-delay: 1.5s;
+            opacity: 0.15; /* Drastically reduced for a whisper-quiet effect */
+        }
+
 
         body.light-mode .tool-section {
             background: var(--light-card);
-            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 0 20px var(--primary);
         }
 
         .tool-section.hidden {
@@ -667,7 +804,6 @@
             color: var(--danger);
         }
         
-        /* NEW: Update strength text and recommendation colors */
         .strength-very-weak { color: var(--danger); }
         .strength-weak { color: var(--danger); }
         .strength-medium { color: var(--warning); }
@@ -774,6 +910,8 @@
     </style>
 </head>
 <body>
+    <div class="initial-glow-overlay"></div>
+    
     <div class="background-animation"></div>
     <div class="main-bg">
         <header>
@@ -795,6 +933,15 @@
                 </button>
             </div>
         </header>
+
+        <div class="docs-promo">
+            <p>
+                <strong>How does this work?</strong> This tool uses advanced APIs and cryptographic hashing (K-Anonymity) to check password strength and breach status, ensuring your password is <strong>never</strong> sent over the internet.
+            </p>
+            <button id="learn-more-btn">
+                <i class="ri-book-line"></i> View Full Documentation
+            </button>
+        </div>
 
         <main>
             <section id="password-check-section" class="tool-section">
@@ -860,7 +1007,6 @@
                         </button>
                     </div>
                     
-                    <!-- NEW: Password Strength and Crack Time Display -->
                     <p id="generated-strength-text">Click generate to check password strength</p>
                     
                     <div class="password-meter-container">
@@ -972,8 +1118,14 @@
         const docsBtn = document.getElementById('docs-btn');
         const docsModal = document.getElementById('docs-modal');
         const closeModal = document.getElementById('close-modal');
+        const learnMoreBtn = document.getElementById('learn-more-btn'); // NEW
 
         docsBtn.addEventListener('click', () => {
+            docsModal.style.display = 'block';
+        });
+
+        // NEW: Event listener for the prominent docs button
+        learnMoreBtn.addEventListener('click', () => {
             docsModal.style.display = 'block';
         });
 
