@@ -176,54 +176,135 @@
         
         /* --- NEW: STYLES FOR ANIMATION ENHANCEMENTS (v4 - FINAL) --- */
 
-        /* 3. Cinematic "Engine Start" Intro */
-        .initial-glow-overlay {
+        /* 3. Next-Level "Gemini-Inspired" Intro Animation */
+        .gemini-intro-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 0% 0%, var(--primary), transparent 40%),
-                radial-gradient(circle at 100% 0%, var(--secondary), transparent 40%),
-                radial-gradient(circle at 0% 100%, var(--secondary), transparent 40%),
-                radial-gradient(circle at 100% 100%, var(--primary), transparent 40%);
-            background-size: 200% 200%;
-            background-position: center center;
+            inset: 0; /* (top, right, bottom, left) */
             z-index: 9999;
-            pointer-events: none;
-            animation: engine-start-intro 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            background-color: var(--dark-bg);
+            overflow: hidden;
+            pointer-events: auto; /* Will be set to none by animation */
+            animation: gemini-fade-out 0.8s 1.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        @keyframes engine-start-intro {
+        .gemini-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px); /* Soft, large glow */
+            opacity: 0; /* Start invisible */
+            will-change: transform, opacity;
+            animation: gemini-orb-animate 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        /* MODIFIED: Changed to gradient backgrounds */
+        .orb-1 {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--primary), var(--secondary));
+        }
+        
+        .orb-2 {
+            top: 20%;
+            right: 5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--secondary), var(--primary));
+            animation-delay: 0.1s;
+        }
+        
+        .orb-3 {
+            bottom: 15%;
+            left: 20%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--secondary), var(--primary));
+            animation-delay: 0.2s;
+        }
+        
+        .orb-4 {
+            bottom: 10%;
+            right: 15%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--primary), var(--secondary));
+            animation-delay: 0.15s;
+        }
+
+        /* NEW: Styles for the intro text */
+        .intro-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .intro-line-1 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--dark-text);
+            opacity: 0; /* Start hidden */
+            animation: text-fade-in-out 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            will-change: opacity, transform;
+        }
+
+        .intro-line-2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary); /* Match the logo */
+            letter-spacing: 2px;
+            margin-top: 0.25em;
+            opacity: 0; /* Start hidden */
+            animation: text-fade-in-out 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards; /* 0.2s delay */
+            will-change: opacity, transform;
+        }
+
+        @keyframes gemini-orb-animate {
             0% {
+                transform: scale(0);
                 opacity: 0;
-                transform: scale(0.3);
-                filter: blur(40px);
-            }
-            20% {
-                opacity: 0.5;
-                transform: scale(0.4);
             }
             30% {
-                opacity: 0.3;
-                transform: scale(0.38);
+                transform: scale(1);
+                opacity: 0.8;
             }
-            50% {
-                opacity: 0.8; /* Peak opacity reduced by 20% */
-                transform: scale(0.8);
-                filter: blur(25px);
+            60% {
+                transform: scale(0.9); /* "Inhale" */
+                opacity: 0.6;
             }
-            80% {
-                opacity: 0.7;
-                transform: scale(1.3);
+            100% {
+                transform: scale(10); /* "Exhale" / Reveal */
+                opacity: 0;
+            }
+        }
+
+        @keyframes gemini-fade-out {
+            0% {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            99% {
+                opacity: 0;
+                pointer-events: auto;
             }
             100% {
                 opacity: 0;
-                transform: scale(2.5);
-                filter: blur(40px);
+                pointer-events: none;
+                visibility: hidden;
             }
         }
+
+        /* NEW: Keyframes for the text animation */
+        @keyframes text-fade-in-out {
+            0% { opacity: 0; transform: translateY(10px); }
+            20% { opacity: 1; transform: translateY(0); } /* Fade in from 0s to 0.44s */
+            70% { opacity: 1; transform: translateY(0); } /* Hold from 0.44s to 1.54s */
+            100% { opacity: 0; transform: translateY(-10px); } /* Fade out from 1.54s to 2.2s */
+        }
+
 
         /* 2. Whisper-Quiet Box Glow */
         @property --angle {
@@ -910,7 +991,17 @@
     </style>
 </head>
 <body>
-    <div class="initial-glow-overlay"></div>
+    <div class="gemini-intro-overlay">
+        <div class="gemini-orb orb-1"></div>
+        <div class="gemini-orb orb-2"></div>
+        <div class="gemini-orb orb-3"></div>
+        <div class="gemini-orb orb-4"></div>
+        
+        <div class="intro-text">
+            <div class="intro-line-1">Initializing Secure Toolkit</div>
+            <div class="intro-line-2">SECURE PASS</div>
+        </div>
+    </div>
     
     <div class="background-animation"></div>
     <div class="main-bg">
